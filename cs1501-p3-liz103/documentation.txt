@@ -1,0 +1,32 @@
+documentation.txt
+
+Justify my decisions in project3
+Because we want to retrieve the minimum price and mileage from the car array, called carArr. So I think I can use minPQ to store price and mileage attributes separately. I don’t want to store car in PQ because car object is not comparable in the first place. Then, we are required to remove cars with specific VIN number no matter if it is minimum or not, I choose indexableMinPQ to track every car.
+
+Because the index of indexablePQ is stable when you delete a car from the PQ, so I choose to use an array instead of List to store all car objects. Since remove an element in List would change index split, but with an array, you can set the deleted elements as null so other indices will not change.
+
+To link VIN and car objects, I build a hash map called VIN2car, so base on the VIN input, we will get the car object in constant time. Then I build a hash map called mode2PQ, which allows us to get the PQ for each mode by user input of mode and make string.
+
+Runtimes:
+For add: 
+1. add into hashmaps and the carArr: constant
+2. add into the carPQ: lg(n) —> the height of the “tree”
+3. add into the pricePQ and milleagePQ: lg(n)
+
+For update:
+1. update in carArr: constant
+2. update the carPQ: constant (because we have the index!)
+3. update the pricePQ and mileagePQ: as above
+
+For remove:
+1. remove from carArr: constant
+2. remove from PQs: lg(n) —> swap the last one and sink down, worst case is sink to the bottom…so, it could be lg(n)
+
+For retrieve:
+1. retrieve from hashMaps and array: constant —> we have keys and index for them.
+2. retrieve from PQs: 1 (constant) —> the minimum value is always on the top. So we just peek the top
+
+Spaces:
+1. carArr: n
+2. hash map: n
+3. PQ: n
